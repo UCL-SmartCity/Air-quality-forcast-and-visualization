@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html style="height: 100%">
+  <head>
+    <meta charset="utf-8" />
+  </head>
+  <body style="height: 100%; margin: 0">
+    <div
+      id="container"
+      data-data1="{{ data_name |safe }}"
+      data-geoCoordMap="{{ geoCoordMap |safe }}"
+      style="height: 100%"
+    ></div>
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/echarts@4/dist/echarts.min.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/echarts-gl@1/dist/echarts-gl.min.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/echarts-stat@1/dist/ecStat.min.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/echarts@4/dist/extension/dataTool.min.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/echarts@4/map/js/china.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/echarts@4/map/js/world.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="https://api.map.baidu.com/api?v=2.0&ak=yD8qDs3IeXymoPiCZsKRGVvXIZH0lBni"
+    ></script>
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/echarts@4/dist/extension/bmap.min.js"
+    ></script>
+    <script type="text/javascript">
+      var dom = document.getElementById("container");
+      var myChart = echarts.init(dom);
+      var app = {};
+      option = null;
+      var data = {{data_name | safe}};
+      var geoCoordMap = {{geoCoordMap | safe}};
+
+      var convertData = function (data) {
+          var res = [];
+          for (var i = 0; i < data.length; i++) {
+              var geoCoord = geoCoordMap[data[i].name];
+              if (geoCoord) {
+                  res.push({
+                      name: data[i].name,
+                      value: geoCoord.concat(data[i].value),
+                      item:data[i].item,
+                      id:data[i].id
+                  });
+              }
+          }
+          return res;
+      };
+
+      option = {
+          title: {
+              text: '租房信息',
+              subtext:"租房信息",
+              sublink: 'http://127.0.0.1:8000/home',
+              left: 'center'
+          },
+          tooltip : {
+              trigger: 'item'
+          },
+          bmap: {
+              center: [116.433589,39.911393],
+              zoom: 5,
+              roam: true,
+              mapStyle: {
+                  styleJson: [{
+                      'featureType': 'water',
+                      'elementType': 'all',
+                      'stylers': {
+                          'color': '#d1d1d1'
+                      }
+                  }, {
+                      'featureType': 'land',
+                      'elementType': 'all',
+                      'stylers': {
+                          'color': '#f3f3f3'
+                      }
+                  }, {
+                      'featureType': 'railway',
+                      'elementType': 'all',
+                      'stylers': {
+                          'visibility': 'off'
+                      }
+                  }, {
+                      'featureType': 'highway',
+                      'elementType': 'all',
+                      'stylers': {
+                          'color': '#fdfdfd'
+                      }
+                  }, {
+                      'featureType': 'highway',
+                      'elementType': 'labels',
+                      'stylers': {
+                          'visibility': 'off'
+                      }
+                  }, {
+                      'featureType': 'arterial',
+                      'elementType': 'geometry',
+                      'stylers': {
+                          'color': '#fefefe'
+                      }
+                  }, {
+                      'featureType': 'arterial',
+                      'elementType': 'geometry.fill',
+                      'stylers': {
+                          'color': '#fefefe'
+                      }
+                  }, {
+                      'featureType': 'poi',
+                      'elementType': 'all',
+                      'stylers': {
+                          'visibility': 'off'
+                      }
+                  }, {
+                      'featureType': 'green',
+                      'elementType': 'all',
+                      'stylers': {
+                          'visibility': 'off'
+                      }
+                  }, {
+                      'featureType': 'subway',
+                      'elementType': 'all',
+                      'stylers': {
+                          'visibility': 'off'
+                      }
+                  }, {
+                      'featureType': 'manmade',
+                      'elementType': 'all',
+                      'stylers': {
+                          'color': '#d1d1d1'
+                      }
+                  }, {
+                      'featureType': 'local',
+                      'elementType': 'all',
+                      'stylers': {
+                          'color': '#d1d1d1'
+                      }
+                  }, {
+                      'featureType': 'arterial',
+                      'elementType': 'labels',
+                      'stylers': {
+                          'visibility': 'off'
+                      }
+                  }, {
+                      'featureType': 'boundary',
+                      'elementType': 'all',
+                      'stylers': {
+                          'color': '#fefefe'
+                      }
+                  }, {
+                      'featureType': 'building',
+                      'elementType': 'all',
+                      'stylers': {
+                          'color': '#d1d1d1'
+                      }
+                  }, {
+                      'featureType': 'label',
+                      'elementType': 'labels.text.fill',
+                      'stylers': {
+                          'color': '#999999'
+                      }
+                  }]
+              }
+          },
+          series : [
+              {
+                  name: 'tianqi',
+                  type: 'scatter',
+                  zoom: 1.2,
+                  coordinateSystem: 'bmap',
+                  data: convertData(data),
+                  symbolSize: function (val) {
+                      return val[2] / 10;
+                  },
+
+                  encode: {
+                      value: 2
+                  },
+                  label: {
+                      formatter: '{b}',
+                      position: 'right',
+                      show: false
+                  },
+                  itemStyle: {
+                      color: 'purple'
+                  },
+                  emphasis: {
+                      label: {
+                          show: true
+                      }
+                  },
+              },
+              {
+                  name: 'shansuo',
+                  type: 'effectScatter',
+                  zoom: 1.2,
+                  coordinateSystem: 'bmap',
+                  data: convertData(data.sort(function (a, b) {
+                      return b.value - a.value;
+                  })),
+                  symbolSize: function (val) {
+                      return val[2] / 10;
+                  },
+                  encode: {
+                      value: 2
+                  },
+                  showEffectOn: 'render',
+                  rippleEffect: {
+                      brushType: 'stroke'
+                  },
+                  hoverAnimation: true,
+                  label: {
+                      formatter: '{b}',
+                      position: 'right',
+                      show: true
+                  },
+                  itemStyle: {
+                      color: 'purple',
+                      shadowBlur: 10,
+                      shadowColor: '#333'
+                  },
+                  tooltip: {
+                    formatter(value) {
+                      return value.data.name + "<br/>"  + value.data.item ;
+                    },
+                    show: true
+                  },
+                  zlevel: 1
+              }
+
+          ]
+      };;
+      if (option && typeof option === "object") {
+          myChart.setOption(option, true);
+      <!--    window.onresize = myChart.resize;-->
+          myChart.on('click', function(params){
+      			console.log(params);
+
+      		});
+      }
+    </script>
+  </body>
+</html>

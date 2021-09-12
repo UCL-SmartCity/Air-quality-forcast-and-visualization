@@ -1,0 +1,15 @@
+.DS_Store
+data/AirqualityMonitoringSite.csv
+data/cities.csv
+data/COReadings.csv
+data/COSensor.csv
+data/NO2Readings.csv
+data/NO2Sensor.csv
+data/O3Readings.csv
+data/O3Sensor.csv
+data/PM10Readings.csv
+data/PM10Sensor.csv
+data/PM25Readings.csv
+data/PM25Sensor.csv
+data/SO2Readings.csv
+data/SO2Sensor.csv

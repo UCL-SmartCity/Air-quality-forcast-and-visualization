@@ -39,10 +39,10 @@ python3 main.py
 
 ![plotly](devlog/plotly.jpg)
 
-6. Run `visualization(py+js)` to visualize the data using Google Maps API. Open the url`http://0.0.0.0:5000/` in your brower to see the mapping.
+6. Run `visualization(py+js)` to visualize the data using Google Maps API. Open the url `http://0.0.0.0:5000/` in your brower to see the mapping.
 
 ![googlemaps](devlog/googlemaps.jpg)
 
 ## Having problems?
 
-If you run into problems, please either file a github issue or send an email to uceewta@ucl.ac.uk.
+If you run into problems, please either file a github issue or send an email to [uceewta@ucl.ac.uk](mailto:uceewta@ucl.ac.uk).

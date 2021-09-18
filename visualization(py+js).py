@@ -1,8 +1,6 @@
 # -*- encoding:utf-8 -*-
 
 import csv
-import os
-import time
 
 from flask import Flask, render_template, request
 

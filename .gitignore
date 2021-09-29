@@ -13,3 +13,6 @@ data/PM25Readings.csv
 data/PM25Sensor.csv
 data/SO2Readings.csv
 data/SO2Sensor.csv
+data/HumidityReadings.csv
+data/PressureReadings.csv
+data/TempReadings.csv

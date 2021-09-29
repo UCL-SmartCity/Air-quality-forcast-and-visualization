@@ -6,7 +6,7 @@ import plotly.express as px
 
 def viz(FilePath_monitoring):
     dataMap = pd.read_csv(FilePath_monitoring).iloc[:, 1:]
-    # Apply token from the official website: https://chart-studio.plotly.com/
+    # Apply token from the official website: https://www.mapbox.com/studio
     token = 'pk.eyJ1IjoibGFiaW5nanVuIiwiYSI6ImNrc3JuaW1xMzBvdncyb2xtZWk3Ym93ajgifQ.LjSxb0FvmRsSS9_cxoy8mw'
 
     fig = px.scatter_mapbox(dataMap,
